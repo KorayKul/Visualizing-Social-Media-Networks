@@ -70,7 +70,12 @@ Now, let's begin the analysis:
 
 
 ```{r}
-# Write your answer here
+library(readr)
+library(tidyverse)
+replies <- read_rds("data/rstats_tweets.rds")
+
+
+
 ```
 
 
@@ -80,7 +85,13 @@ Rename these columns to `from` and `to`.
 
 
 ```{r}
-# Write your answer here
+replies <- replies %>% 
+  select(screen_name,reply_to_screen_name) %>% 
+  mutate(from = screen_name,
+         to = reply_to_screen_name) %>% 
+  select(-screen_name,-reply_to_screen_name)
+
+
 ```
 
 
@@ -89,7 +100,13 @@ Remove these replies from the data.
 
 
 ```{r}
-# Write your answer here
+
+replies <- replies %>% filter(from != to)
+
+
+
+
+
 ```
 
 
@@ -104,7 +121,13 @@ Proceed in two steps:
 
 
 ```{r}
-# Write your answer here
+
+relplies_hi_50 <- replies %>% 
+  count(to) %>% 
+  arrange(n) %>% 
+  filter(n>50) 
+
+
 ```
 
 
@@ -112,7 +135,9 @@ Proceed in two steps:
 
   
 ```{r}
-# Write your answer here
+
+
+
 ```
 
 
